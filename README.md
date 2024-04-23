@@ -115,4 +115,4 @@ The name where your build assets are stored after a build.
 
 ## License
 
-MIT License © 2024 [Nathaiel](https://github.com/nathanielrz)
+MIT License © 2024 [Nathaniel](https://github.com/nathanielrz)
