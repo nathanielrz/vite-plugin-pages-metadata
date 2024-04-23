@@ -25,7 +25,7 @@ Edit your `vite.config.ts`
 
 ```js
 import { defineConfig } from "vite";
-import { routePlugin } from "vite-plugin-pages-metadata";
+import { routePlugin, generateRoute } from "vite-plugin-pages-metadata";
 
 let routeArray: {
   path: string,
@@ -41,29 +41,20 @@ export default defineConfig(({ command }) => {
         // ...
         onRoutesGenerated: (routes) => {
           routes.forEach((route) => {
-            const titles =
-              route.path == "/"
-                ? "Homepage"
-                : route.path == "*"
-                ? "404"
-                : route.path == "about"
-                ? "About us"
-                : "Error";
-            if (!route.children) {
-              routeArray.push({
-                path: route.path,
-                title: titles,
-                description: "",
-              });
-            } else if (
-              route.children.path &&
-              route.children.path.substring(0, 1) !== ":"
-            ) {
+            generateRoute(() => {
+              const titles =
+                route.path == "/"
+                  ? "Homepage"
+                  : route.path == "*"
+                  ? "404"
+                  : route.path == "about"
+                  ? "About Us"
+                  : "";
               routeArray.push({
                 path: route.path,
                 title: titles,
               });
-            }
+            });
           });
         },
       }),
