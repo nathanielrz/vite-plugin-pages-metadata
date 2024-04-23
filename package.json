@@ -9,7 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "pkgroll"
+    "build": "pkgroll",
+    "release": "npm run build && npm publish"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
