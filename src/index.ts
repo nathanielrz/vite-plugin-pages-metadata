@@ -3,7 +3,7 @@ import type { UserOptions, Route } from "./types";
 
 let pages: UserOptions["routeArray"] = [];
 
-export function routePlugin({
+function routePlugin({
   routeArray,
   outDir,
   command,
@@ -74,3 +74,5 @@ export function routePlugin({
     },
   };
 }
+
+export { routePlugin, UserOptions, Route };
