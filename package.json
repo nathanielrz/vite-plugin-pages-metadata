@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-pages-metadata",
   "description": "Build full production assets for better SEO and metadata integration.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
