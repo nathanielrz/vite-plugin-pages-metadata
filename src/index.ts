@@ -78,21 +78,20 @@ function routePlugin({
   };
 }
 
-function generateRoute({
-  route,
-  callback,
-}: {
-  route: { path: string; children?: any };
-  callback: () => void;
-}) {
-  if (!route.children) {
-    callback;
-  } else if (
-    route.children.path &&
-    route.children.path.substring(0, 1) !== ":"
-  ) {
-    callback;
-  }
+function generateRoutes(
+  routes: { path: string; children?: any }[],
+  callback: () => void
+) {
+  routes.forEach((route) => {
+    if (!route.children) {
+      callback();
+    } else if (
+      route.children.path &&
+      route.children.path.substring(0, 1) !== ":"
+    ) {
+      callback();
+    }
+  });
 }
 
-export { routePlugin, generateRoute, UserOptions, Route };
+export { routePlugin, generateRoutes, UserOptions, Route };
