@@ -48,9 +48,12 @@ function routePlugin({
             return 0;
           });
           pages.map((page: Route) => {
-            fs.mkdirSync(`${outDir ? outDir : "dist"}/game`, {
-              recursive: true,
-            });
+            if (page.path.includes("/")) {
+              const subdirectory = page.path.split("/")[1];
+              fs.mkdirSync(`${outDir ? outDir : "dist"}/${subdirectory}`, {
+                recursive: true,
+              });
+            }
             const template = fs.readFileSync(
               `${outDir ? outDir : "dist"}/index.html`,
               "utf8"
