@@ -80,16 +80,16 @@ function routePlugin({
 
 function generateRoutes(
   routes: { path: string; children?: any }[],
-  callback: () => void
+  callback: (route: { path: string; children?: any }) => void
 ) {
   routes.forEach((route) => {
     if (!route.children) {
-      callback();
+      callback(route);
     } else if (
       route.children.path &&
       route.children.path.substring(0, 1) !== ":"
     ) {
-      callback();
+      callback(route);
     }
   });
 }
