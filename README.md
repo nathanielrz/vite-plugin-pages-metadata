@@ -24,8 +24,8 @@ npm install -D vite-plugin-pages-metadata
 Edit your `vite.config.ts`
 
 ```js
+import { routePlugin, generateRoutes } from "vite-plugin-pages-metadata";
 import { defineConfig } from "vite";
-import { routePlugin, generateRoute } from "vite-plugin-pages-metadata";
 
 let routeArray: {
   path: string,
@@ -40,20 +40,23 @@ export default defineConfig(({ command }) => {
       Pages({
         // ...
         onRoutesGenerated: (routes) => {
-          routes.forEach((route) => {
-            generateRoute(() => {
-              const titles =
-                route.path == "/"
-                  ? "Homepage"
-                  : route.path == "*"
-                  ? "404"
-                  : route.path == "about"
-                  ? "About Us"
-                  : "";
-              routeArray.push({
-                path: route.path,
-                title: titles,
-              });
+          generateRoutes(routes, (route) => {
+            const metadata: { title: string, description?: string } = {
+              ...(route.path == "/"
+                ? {
+                    title: "My website",
+                    description: "This is my awesome website",
+                  }
+                : route.path == "about"
+                ? { title: "About my website" }
+                : { title: "404" }),
+            };
+            routeArray.push({
+              path: route.path,
+              title: metadata.title,
+              ...(metadata.description && {
+                description: metadata.description,
+              }),
             });
           });
         },
