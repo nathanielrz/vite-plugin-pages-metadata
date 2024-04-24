@@ -1,7 +1,7 @@
 # vite-plugin-pages-metadata
 
-<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/v/vite-plugin-pages-metadata" alt="version" /></a>
-<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/dm/vite-plugin-pages-metadata" alt="types" /></a>
+<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/v/vite-plugin-pages-metadata" alt="npm version" /></a>
+<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/dm/vite-plugin-pages-metadata" alt="monthly downloads" /></a>
 <a href="https://github.com/nathanielrz/vite-plugin-pages-metadata/blob/main/src/types.ts"><img src="https://badgen.net/npm/types/vite-plugin-pages-metadata" alt="types" /></a>
 
 > unofficial vite-plugin-pages enhanced build
