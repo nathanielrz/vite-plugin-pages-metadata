@@ -10,6 +10,8 @@
 
 Make sure you have the original plugin installed [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) for the route generation, everything is on us.
 
+Since we are in early release we only support title and description others like, favicon, author, or keywords aren't yet added, consider sending a pull request.
+
 ### Getting Started
 
 Installation process.
@@ -17,6 +19,28 @@ Installation process.
 ```bash
 npm install -D vite-plugin-pages
 npm install -D vite-plugin-pages-metadata
+```
+
+### Index.html
+
+Replace your current metadata with a comment similar to EJS.
+
+Example of `index.html` located in the root directory.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/ico" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- metadata -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
 ```
 
 ### Vite config
