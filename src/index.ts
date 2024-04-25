@@ -95,9 +95,8 @@ function generateRoutes(
 }
 
 function useMeta(path: string) {
-  /*const page = pages.find((page) => page.path == path);
-  return page && page.title ? page.title : "404";*/
-  return "123";
+  const page = pages.find((page) => page.path == path);
+  return page && page.title ? page.title : "404";
 }
 
 export { routePlugin, generateRoutes, useMeta, UserOptions, Route };

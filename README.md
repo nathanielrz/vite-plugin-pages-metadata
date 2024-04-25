@@ -117,6 +117,23 @@ posts.map((post) => {
 // ...
 ```
 
+### Fast Refresh Title
+
+Edit `src/main.tsx` or your entry file.
+
+```js
+// ...
+import { useMeta } from "vite-plugin-pages-metadata";
+
+function App() {
+  const location = useLocation();
+  useEffect(() => {
+    document.title = useMeta(location.pathname);
+  }, [location]);
+  // ...
+}
+```
+
 ### routeArray
 
 - **Type:** `Route[] or { path: string; title: string; description?: string; }`
