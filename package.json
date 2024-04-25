@@ -24,7 +24,8 @@
   ],
   "scripts": {
     "build": "pkgroll",
-    "release": "npm run build && npm publish"
+    "release": "npm run build && npm publish",
+    "example": "npm run build && npm -C example run dev"
   },
   "devDependencies": {
     "@types/node": "^20.12.7",

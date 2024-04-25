@@ -94,4 +94,10 @@ function generateRoutes(
   });
 }
 
-export { routePlugin, generateRoutes, UserOptions, Route };
+function useMeta(path: string) {
+  /*const page = pages.find((page) => page.path == path);
+  return page && page.title ? page.title : "404";*/
+  return "123";
+}
+
+export { routePlugin, generateRoutes, useMeta, UserOptions, Route };

@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap");
+
+html,
+body {
+  font-family: "Roboto Slab", sans-serif;
+  background-color: #eee;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  font-family: "Roboto Slab", sans-serif;
+}
+
+h1 {
+  font-size: 1.25rem;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+p {
+  font-size: 0.75rem;
+  max-width: 32rem;
+  color: #777;
+}
+
+a {
+  font-size: 0.75rem;
+  color: #ff3600;
+  text-decoration: none;
+}
+
+a.blue {
+  color: #00a2ff;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #ddd;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: #bbb 0.25rem solid;
+}
+
+.btn-container {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.spinner_V8m1 {
+  transform-origin: center;
+  animation: spinner_zKoa 2s linear infinite
+}
+
+.spinner_V8m1 circle {
+  stroke-linecap: round;
+  animation: spinner_YpZS 1.5s ease-in-out infinite
+}
+
+@keyframes spinner_zKoa {
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes spinner_YpZS {
+  0% {
+    stroke-dasharray: 0 150;
+    stroke-dashoffset: 0
+  }
+
+  47.5% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -16
+  }
+
+  95%,
+  100% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -59
+  }
+}

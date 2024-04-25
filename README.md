@@ -1,8 +1,8 @@
 # vite-plugin-pages-metadata
 
-<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/v/vite-plugin-pages-metadata" alt="npm version" /></a>
-<a href="https://www.npmjs.com/package/vite-plugin-pages-metadata"><img src="https://badgen.net/npm/dm/vite-plugin-pages-metadata" alt="monthly downloads" /></a>
-<a href="https://github.com/nathanielrz/vite-plugin-pages-metadata/blob/main/src/types.ts"><img src="https://badgen.net/npm/types/vite-plugin-pages-metadata" alt="types" /></a>
+[![npm version](https://badgen.net/npm/v/vite-plugin-pages-metadata)](https://www.npmjs.com/package/vite-plugin-pages-metadata)
+[![monthly downloads](https://badgen.net/npm/dm/vite-plugin-pages-metadata)](https://www.npmjs.com/package/vite-plugin-pages-metadata)
+[![types](https://badgen.net/npm/types/vite-plugin-pages-metadata)](https://github.com/nathanielrz/vite-plugin-pages-metadata/blob/main/src/types.ts)
 
 > unofficial vite-plugin-pages enhanced build
 
@@ -10,7 +10,7 @@
 
 Make sure you have the original plugin installed [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) for the route generation, everything is on us.
 
-Since we are in early release we only support title and description others like, favicon, author, or keywords aren't yet added, consider sending a pull request.
+We highly recommend that you keep viewports, and favicons global while title, description per-page. Right now keywords and author metas are not yet supported. Please consider creating a pull request.
 
 ### Getting Started
 
