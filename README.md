@@ -135,7 +135,7 @@ posts.map((post) => {
 // ...
 ```
 
-### Fast Refresh Title
+### Fast Refresh Support
 
 Edit `src/main.tsx` or your entry file.
 
