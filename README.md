@@ -48,7 +48,9 @@ Example of `index.html` located in the root directory.
 Edit your `vite.config.ts`
 
 ```js
-import { routePlugin, generateRoutes } from "vite-plugin-pages-metadata";
+import { routePlugin, generateRoutes, Route, createMetadata } from "vite-plugin-pages-metadata";
+import react from "@vitejs/plugin-react";
+import Pages from "vite-plugin-pages";
 import { defineConfig } from "vite";
 
 let routeArray: {
@@ -63,26 +65,44 @@ export default defineConfig(({ command }) => {
       react(),
       Pages({
         // ...
-        onRoutesGenerated: (routes) => {
-          generateRoutes(routes, (route) => {
-            const metadata: { title: string, description?: string } = {
-              ...(route.path == "/"
-                ? {
-                    title: "My website",
-                    description: "This is my awesome website",
-                  }
-                : route.path == "about"
-                ? { title: "About my website" }
-                : { title: "404" }),
+        extendRoute(route) {
+          if (route.path === "/") {
+            return {
+              ...route,
+              meta: {
+                title: "My website",
+                description: "This is my awesome website",
+              },
             };
+          } else if (route.path == "about") {
+            return {
+              ...route,
+              meta: {
+                title: "About us",
+              },
+            };
+          } else {
+            return {
+              ...route,
+              meta: {
+                title: "404",
+              },
+            };
+          }
+        },
+        onRoutesGenerated(routes) {
+          generateRoutes(routes, (route) => {
             routeArray.push({
               path: route.path,
-              title: metadata.title,
-              ...(metadata.description && {
-                description: metadata.description,
-              }),
+              ...(route.meta &&
+                route.meta.title && { title: route.meta.title }),
+              ...(route.meta &&
+                route.meta.description && {
+                  description: route.meta.description,
+                }),
             });
           });
+          createMetadata(routeArray);
         },
       }),
       routePlugin({
