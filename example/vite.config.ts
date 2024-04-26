@@ -1,4 +1,9 @@
-import { routePlugin, generateRoutes, Route, createMetadata } from "vite-plugin-pages-metadata";
+import {
+  routePlugin,
+  generateRoutes,
+  Route,
+  createMetadata,
+} from "vite-plugin-pages-metadata";
 import react from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import { defineConfig } from "vite";

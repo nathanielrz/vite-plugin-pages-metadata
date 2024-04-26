@@ -48,16 +48,17 @@ Example of `index.html` located in the root directory.
 Edit your `vite.config.ts`
 
 ```js
-import { routePlugin, generateRoutes, Route, createMetadata } from "vite-plugin-pages-metadata";
+import {
+  routePlugin,
+  generateRoutes,
+  Route,
+  createMetadata,
+} from "vite-plugin-pages-metadata";
 import react from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import { defineConfig } from "vite";
 
-let routeArray: {
-  path: string,
-  title: string,
-  description?: string,
-}[] = [];
+let routeArray: Route[] = [];
 
 export default defineConfig(({ command }) => {
   return {
@@ -121,11 +122,8 @@ export default defineConfig(({ command }) => {
 // ...
 import posts from "./src/api/posts";
 
-let routeArray: {
-  path: string,
-  title: string,
-  description?: string,
-}[] = [];
+let routeArray: Route[] = [];
+
 posts.map((post) => {
   return routeArray.push({
     path: `/post/${post.id}`,
@@ -143,12 +141,24 @@ Edit `src/main.tsx` or your entry file.
 
 ```js
 // ...
-import { useMeta } from "vite-plugin-pages-metadata";
+import { useRoutes, useLocation, matchRoutes } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
   useEffect(() => {
-    document.title = useMeta(location.pathname);
+    const route = matchRoutes(routes, location.pathname);
+    if (route) {
+      const path = route[0].route.path;
+      fetch("/metadata.json")
+        .then((response) => response.json())
+        .then((json) => {
+          const metadata = json.find(
+            (route: { path: string | undefined }) => route.path == path
+          );
+          document.title = metadata.title;
+        });
+    }
   }, [location]);
   // ...
 }
