@@ -1,8 +1,7 @@
-import { routePlugin, generateRoutes, Route } from "vite-plugin-pages-metadata";
+import { routePlugin, generateRoutes, Route, createMetadata } from "vite-plugin-pages-metadata";
 import react from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import { defineConfig } from "vite";
-import fs from "fs";
 
 let routeArray: Route[] = [];
 
@@ -48,20 +47,7 @@ export default defineConfig(({ command }) => {
                 }),
             });
           });
-          fs.writeFile(
-            "public/metadata.json",
-            JSON.stringify(routeArray, null, 2),
-            (err) => {
-              if (err) {
-                fs.mkdir("public", () => {
-                  fs.writeFileSync(
-                    "public/metadata.json",
-                    JSON.stringify(routeArray, null, 2)
-                  );
-                });
-              }
-            }
-          );
+          createMetadata(routeArray);
         },
       }),
       routePlugin({

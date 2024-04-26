@@ -98,4 +98,21 @@ function generateRoutes(
   });
 }
 
-export { routePlugin, generateRoutes, UserOptions, Route };
+function createMetadata(routeArray: Route[]) {
+  fs.writeFile(
+    "public/metadata.json",
+    JSON.stringify(routeArray, null, 2),
+    (err) => {
+      if (err) {
+        fs.mkdir("public", () => {
+          fs.writeFileSync(
+            "public/metadata.json",
+            JSON.stringify(routeArray, null, 2)
+          );
+        });
+      }
+    }
+  );
+}
+
+export { routePlugin, generateRoutes, createMetadata, UserOptions, Route };
