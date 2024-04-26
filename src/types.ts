@@ -1,7 +1,7 @@
 interface Route {
   path: string;
-  title: string;
-  description?: string;
+  title?: string | null;
+  description?: string | null;
 }
 
 interface UserOptions {

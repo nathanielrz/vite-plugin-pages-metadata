@@ -80,7 +80,11 @@ function routePlugin({
 
 function generateRoutes(
   routes: { path: string; children?: any }[],
-  callback: (route: { path: string; children?: any }) => void
+  callback: (route: {
+    path: string;
+    children?: any;
+    meta?: { title?: string | null; description?: string | null };
+  }) => void
 ) {
   routes.forEach((route) => {
     if (!route.children) {
@@ -94,9 +98,4 @@ function generateRoutes(
   });
 }
 
-function useMeta(path: string) {
-  const page = pages.find((page) => page.path == path);
-  return page && page.title ? page.title : "404";
-}
-
-export { routePlugin, generateRoutes, useMeta, UserOptions, Route };
+export { routePlugin, generateRoutes, UserOptions, Route };

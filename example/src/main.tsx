@@ -1,6 +1,10 @@
-import { useRoutes, BrowserRouter, useLocation } from "react-router-dom";
+import {
+  useRoutes,
+  BrowserRouter,
+  useLocation,
+  matchRoutes,
+} from "react-router-dom";
 import { StrictMode, Suspense, useEffect } from "react";
-import { useMeta } from "vite-plugin-pages-metadata";
 import { createRoot } from "react-dom/client";
 import routes from "~react-pages";
 import "./index.css";
@@ -8,7 +12,18 @@ import "./index.css";
 function App() {
   const location = useLocation();
   useEffect(() => {
-    document.title = useMeta(location.pathname);
+    const route = matchRoutes(routes, location.pathname);
+    if (route) {
+      const path = route[0].route.path;
+      fetch("/metadata.json")
+        .then((response) => response.json())
+        .then((json) => {
+          const metadata = json.find(
+            (route: { path: string | undefined }) => route.path == path
+          );
+          document.title = metadata.title;
+        });
+    }
   }, [location]);
   return (
     <Suspense
@@ -28,7 +43,7 @@ function App() {
                 cy="12"
                 r="9.5"
                 fill="none"
-                stroke-width="3"
+                strokeWidth="3"
               ></circle>
             </g>
           </svg>
