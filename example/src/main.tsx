@@ -4,27 +4,45 @@ import {
   useLocation,
   matchRoutes,
 } from "react-router-dom";
-import { StrictMode, Suspense, useEffect } from "react";
+import { StrictMode, Suspense, useEffect, ReactNode } from "react";
 import { createRoot } from "react-dom/client";
+import { metadata } from "./metadata";
 import routes from "~react-pages";
 import "./index.css";
 
-function App() {
+function MetadataProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
+
   useEffect(() => {
     const route = matchRoutes(routes, location.pathname);
-    if (route) {
+    if (route && metadata) {
       const path = route[0].route.path;
-      fetch("/metadata.json")
-        .then((response) => response.json())
-        .then((json) => {
-          const metadata = json.find(
-            (route: { path: string | undefined }) => route.path == path
-          );
-          document.title = metadata.title;
-        });
+      const meta = metadata.find(
+        (route: { path: string; title: string }) => route.path == path,
+      );
+      if (meta) {
+        document.title = meta.title;
+      } else {
+        const path_ = location.pathname.startsWith("/")
+          ? location.pathname.substring(1, location.pathname.length)
+          : location.pathname;
+        const meta_ = metadata.find(
+          (route: { path: string | null }) => route.path == path_,
+        );
+
+        if (meta_) {
+          document.title = meta_.title;
+        } else {
+          document.title = "404";
+        }
+      }
     }
-  }, [location]);
+  }, [location, metadata]);
+
+  return <>{children}</>;
+}
+
+function App() {
   return (
     <Suspense
       fallback={
@@ -58,7 +76,9 @@ function App() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <MetadataProvider>
+        <App />
+      </MetadataProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

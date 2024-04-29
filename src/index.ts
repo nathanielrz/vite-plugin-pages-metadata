@@ -1,5 +1,6 @@
 import fs from "fs";
 import type { UserOptions, Route } from "./types";
+import prettier from "prettier";
 
 let pages: UserOptions["routeArray"] = [];
 
@@ -98,21 +99,18 @@ function generateRoutes(
   });
 }
 
-function createMetadata(routeArray: Route[]) {
-  fs.writeFile(
-    "public/metadata.json",
-    JSON.stringify(routeArray, null, 2),
-    (err) => {
-      if (err) {
-        fs.mkdir("public", () => {
-          fs.writeFileSync(
-            "public/metadata.json",
-            JSON.stringify(routeArray, null, 2)
-          );
-        });
-      }
-    }
+async function createMetadata(routeArray: Route[]) {
+  const data = prettier.format(
+    `export const metadata = ${JSON.stringify(routeArray)}`,
+    { parser: "typescript" }
   );
+  fs.writeFile("src/metadata.ts", await data, (err) => {
+    if (err) {
+      fs.mkdir("public", async () => {
+        fs.writeFileSync("src/metadata.ts", await data);
+      });
+    }
+  });
 }
 
 export { routePlugin, generateRoutes, createMetadata, UserOptions, Route };

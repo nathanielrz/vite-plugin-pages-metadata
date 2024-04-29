@@ -23,7 +23,7 @@
     "react"
   ],
   "scripts": {
-    "build": "pkgroll",
+    "build": "pkgroll --minify",
     "release": "npm run build && npm publish",
     "dev": "npm -C example run dev"
   },
@@ -32,5 +32,8 @@
     "pkgroll": "^2.0.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "prettier": "^3.2.5"
   }
 }
