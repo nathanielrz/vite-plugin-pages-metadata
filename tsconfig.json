@@ -3,6 +3,7 @@
     "module": "CommonJS",
     "target": "ES2017",
     "lib": ["DOM", "ES6"],
+    "jsx": "react-jsx",
     "types": ["node"],
     "strict": true,
     "declaration": true,

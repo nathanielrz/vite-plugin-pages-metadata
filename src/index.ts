@@ -1,5 +1,6 @@
 import fs from "fs";
 import type { UserOptions, Route } from "./types";
+import MetadataProvider from "./components/MetadataProvider";
 import prettier from "prettier";
 
 let pages: UserOptions["routeArray"] = [];
@@ -118,4 +119,11 @@ async function createMetadata(routeArray: Route[]) {
   });
 }
 
-export { routePlugin, generateRoutes, createMetadata, UserOptions, Route };
+export {
+  routePlugin,
+  generateRoutes,
+  createMetadata,
+  MetadataProvider,
+  UserOptions,
+  Route,
+};

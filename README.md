@@ -140,28 +140,21 @@ posts.map((post) => {
 Edit `src/main.tsx` or your entry file.
 
 ```js
+import { MetadataProvider } from "vite-plugin-pages-metadata";
+import { metadata } from "./metadata";
+import routes from "~react-pages";
 // ...
-import { useRoutes, useLocation, matchRoutes } from "react-router-dom";
-import { useEffect } from "react";
 
-function App() {
-  const location = useLocation();
-  useEffect(() => {
-    const route = matchRoutes(routes, location.pathname);
-    if (route) {
-      const path = route[0].route.path;
-      fetch("/metadata.json")
-        .then((response) => response.json())
-        .then((json) => {
-          const metadata = json.find(
-            (route: { path: string | undefined }) => route.path == path
-          );
-          document.title = metadata.title;
-        });
-    }
-  }, [location]);
-  // ...
-}
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <MetadataProvider metadata={metadata} routes={routes}>
+        <App />
+      </MetadataProvider>
+    </BrowserRouter>
+  </StrictMode>,
+);
+
 ```
 
 ### routeArray

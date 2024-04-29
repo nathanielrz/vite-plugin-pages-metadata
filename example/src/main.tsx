@@ -1,48 +1,10 @@
-import {
-  useRoutes,
-  BrowserRouter,
-  useLocation,
-  matchRoutes,
-} from "react-router-dom";
-import { StrictMode, Suspense, useEffect, ReactNode } from "react";
+import { useRoutes, BrowserRouter } from "react-router-dom";
+import { MetadataProvider } from "vite-plugin-pages-metadata";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { metadata } from "./metadata";
 import routes from "~react-pages";
 import "./index.css";
-
-function MetadataProvider({ children }: { children: ReactNode }) {
-  const location = useLocation();
-
-  useEffect(() => {
-    const route = matchRoutes(routes, location.pathname);
-    if (route) {
-      const path = route[0].route.path;
-      const meta = metadata.find(
-        (route: { path: string; title: string }) => route.path == path,
-      );
-      if (meta) {
-        document.title = meta.title;
-      } else {
-        const path_ = location.pathname.startsWith("/")
-          ? location.pathname.substring(1, location.pathname.length)
-          : location.pathname;
-        const meta_ = metadata.find(
-          (route: { path: string | null }) => route.path == path_,
-        );
-
-        console.log(path_);
-
-        if (meta_) {
-          document.title = meta_.title;
-        } else {
-          document.title = "404";
-        }
-      }
-    }
-  }, [location, metadata]);
-
-  return <>{children}</>;
-}
+import { metadata } from "./metadata";
 
 function App() {
   return (
@@ -78,7 +40,7 @@ function App() {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <MetadataProvider>
+      <MetadataProvider metadata={metadata} routes={routes}>
         <App />
       </MetadataProvider>
     </BrowserRouter>
