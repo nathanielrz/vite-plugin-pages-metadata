@@ -28,7 +28,7 @@ Replace your current metadata with a comment similar to EJS.
 Example of `index.html` located in the root directory.
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -75,11 +75,11 @@ export default defineConfig(({ command }) => {
                 description: "This is my awesome website",
               },
             };
-          } else if (route.path == "about") {
+          } else if (route.path == "posts") {
             return {
               ...route,
               meta: {
-                title: "About us",
+                title: "All posts",
               },
             };
           } else {

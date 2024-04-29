@@ -7,8 +7,17 @@ import {
 import react from "@vitejs/plugin-react";
 import Pages from "vite-plugin-pages";
 import { defineConfig } from "vite";
+import posts from "./src/api/posts";
 
 let routeArray: Route[] = [];
+
+posts.map((post) => {
+  return routeArray.push({
+    path: `/post/${post.id}`,
+    title: post.title,
+    description: post.summary,
+  });
+});
 
 export default defineConfig(({ command }) => {
   return {
@@ -24,11 +33,11 @@ export default defineConfig(({ command }) => {
                 description: "This is my awesome website",
               },
             };
-          } else if (route.path == "about") {
+          } else if (route.path == "posts") {
             return {
               ...route,
               meta: {
-                title: "About us",
+                title: "All Posts",
               },
             };
           } else {

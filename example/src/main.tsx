@@ -15,7 +15,7 @@ function MetadataProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const route = matchRoutes(routes, location.pathname);
-    if (route && metadata) {
+    if (route) {
       const path = route[0].route.path;
       const meta = metadata.find(
         (route: { path: string; title: string }) => route.path == path,
@@ -29,6 +29,8 @@ function MetadataProvider({ children }: { children: ReactNode }) {
         const meta_ = metadata.find(
           (route: { path: string | null }) => route.path == path_,
         );
+
+        console.log(path_);
 
         if (meta_) {
           document.title = meta_.title;

@@ -57,7 +57,7 @@ function routePlugin({
             }
             const template = fs.readFileSync(
               `${outDir ? outDir : "dist"}/index.html`,
-              "utf8"
+              "utf8",
             );
             const generatedPage = template.replace(
               "<!-- metadata -->",
@@ -65,11 +65,11 @@ function routePlugin({
                 page.description
                   ? `\n    <meta name="description" content="${page.description}">`
                   : ""
-              }`
+              }`,
             );
             fs.writeFileSync(
               `${outDir ? outDir : "dist"}/${page.path}`,
-              generatedPage
+              generatedPage,
             );
           });
         }, 1000);
@@ -85,7 +85,7 @@ function generateRoutes(
     path: string;
     children?: any;
     meta?: { title?: string | null; description?: string | null };
-  }) => void
+  }) => void,
 ) {
   routes.forEach((route) => {
     if (!route.children) {
@@ -100,9 +100,14 @@ function generateRoutes(
 }
 
 async function createMetadata(routeArray: Route[]) {
+  routeArray.forEach((route) => {
+    if (route.path.startsWith("/") && route.path !== "/") {
+      route.path = route.path.substring(1);
+    }
+  });
   const data = prettier.format(
     `export const metadata = ${JSON.stringify(routeArray)}`,
-    { parser: "typescript" }
+    { parser: "typescript" },
   );
   fs.writeFile("src/metadata.ts", await data, (err) => {
     if (err) {

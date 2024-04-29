@@ -59,6 +59,13 @@ button:focus {
   gap: 0.375rem;
 }
 
+.post-container {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .spinner_V8m1 {
   transform-origin: center;
   animation: spinner_zKoa 2s linear infinite
