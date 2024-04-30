@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import type { UserOptions, Route } from "./types";
 import MetadataProvider from "./components/MetadataProvider";
 import prettier from "prettier";
@@ -50,12 +51,7 @@ function routePlugin({
             return 0;
           });
           pages.map((page: Route) => {
-            if (page.path.includes("/")) {
-              const subdirectory = page.path.split("/")[1];
-              fs.mkdirSync(`${outDir ? outDir : "dist"}/${subdirectory}`, {
-                recursive: true,
-              });
-            }
+            const filePath = `${outDir ? outDir : "dist"}/${page.path}`;
             const template = fs.readFileSync(
               `${outDir ? outDir : "dist"}/index.html`,
               "utf8",
@@ -68,10 +64,11 @@ function routePlugin({
                   : ""
               }`,
             );
-            fs.writeFileSync(
-              `${outDir ? outDir : "dist"}/${page.path}`,
-              generatedPage,
-            );
+            const subdirectory = path.dirname(filePath);
+            if (!fs.existsSync(subdirectory)) {
+              fs.mkdirSync(subdirectory, { recursive: true });
+            }
+            fs.writeFileSync(filePath, generatedPage);
           });
         }, 1000);
         console.log("Build complete");
