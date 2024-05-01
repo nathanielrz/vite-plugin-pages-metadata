@@ -41,6 +41,9 @@ function routePlugin({
               ...(route.description
                 ? { description: route.description }
                 : { description: "" }),
+              ...(route.keywords
+                ? { keywords: route.keywords }
+                : { keywords: [] }),
             });
           }
         });
@@ -62,7 +65,7 @@ function routePlugin({
                 page.description
                   ? `\n    <meta name="description" content="${page.description}">`
                   : ""
-              }`,
+              }${page.keywords && page.keywords.length > 0 ? `\n    <meta name="keywords" content="${page.keywords.join(", ")}" />` : ""}`,
             );
             const subdirectory = path.dirname(filePath);
             if (!fs.existsSync(subdirectory)) {
@@ -79,11 +82,7 @@ function routePlugin({
 
 function generateRoutes(
   routes: { path: string; children?: any }[],
-  callback: (route: {
-    path: string;
-    children?: any;
-    meta?: { title?: string | null; description?: string | null };
-  }) => void,
+  callback: (route: Route) => void,
 ) {
   routes.forEach((route) => {
     if (!route.children) {
@@ -109,7 +108,7 @@ async function createMetadata(routeArray: Route[]) {
   );
   fs.writeFile("src/metadata.ts", await data, (err) => {
     if (err) {
-      fs.mkdir("public", async () => {
+      fs.mkdir("src", async () => {
         fs.writeFileSync("src/metadata.ts", await data);
       });
     }

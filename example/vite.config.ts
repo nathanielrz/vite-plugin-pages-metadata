@@ -19,45 +19,30 @@ posts.map((post) => {
   });
 });
 
+const pages: Route[] = [
+  {
+    path: "/",
+    title: "My website",
+    description: "This is my awesome website",
+    keywords: ["Website", "Awesome"],
+  },
+  { path: "posts", title: "All posts" },
+  { path: "*", title: "404" },
+];
+
 export default defineConfig(({ command }) => {
   return {
     plugins: [
       react(),
       Pages({
-        extendRoute(route) {
-          if (route.path === "/") {
-            return {
-              ...route,
-              meta: {
-                title: "My website",
-                description: "This is my awesome website",
-              },
-            };
-          } else if (route.path == "posts") {
-            return {
-              ...route,
-              meta: {
-                title: "All Posts",
-              },
-            };
-          } else {
-            return {
-              ...route,
-              meta: {
-                title: "404",
-              },
-            };
-          }
-        },
-        onRoutesGenerated(routes) {
-          generateRoutes(routes, (route) => {
+        onRoutesGenerated() {
+          generateRoutes(pages, (page) => {
             routeArray.push({
-              path: route.path,
-              ...(route.meta &&
-                route.meta.title && { title: route.meta.title }),
-              ...(route.meta &&
-                route.meta.description && {
-                  description: route.meta.description,
+              path: page.path,
+              ...(page && page.title && { title: page.title }),
+              ...(page &&
+                page.description && {
+                  description: page.description,
                 }),
             });
           });

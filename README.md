@@ -10,7 +10,7 @@
 
 Make sure you have the original plugin installed [vite-plugin-pages](https://github.com/hannoeru/vite-plugin-pages) for the route generation, everything is on us.
 
-We highly recommend that you keep viewports, and favicons global while title, description per-page. Right now keywords and author metas are not yet supported. Please consider creating a pull request.
+We highly recommend that you keep viewports, and favicons global while title, description, and keywords per-page. Right now the author meta are not yet supported. Please consider creating a pull request.
 
 ### Getting Started
 
@@ -60,46 +60,31 @@ import { defineConfig } from "vite";
 
 let routeArray: Route[] = [];
 
+const pages: Route[] = [
+  {
+    path: "/",
+    title: "My website",
+    description: "This is my awesome website",
+    keywords: ["Website", "Awesome"],
+  },
+  { path: "posts", title: "All posts" },
+  { path: "*", title: "404" },
+];
+
 export default defineConfig(({ command }) => {
   return {
     plugins: [
       react(),
       Pages({
         // ...
-        extendRoute(route) {
-          if (route.path === "/") {
-            return {
-              ...route,
-              meta: {
-                title: "My website",
-                description: "This is my awesome website",
-              },
-            };
-          } else if (route.path == "posts") {
-            return {
-              ...route,
-              meta: {
-                title: "All posts",
-              },
-            };
-          } else {
-            return {
-              ...route,
-              meta: {
-                title: "404",
-              },
-            };
-          }
-        },
-        onRoutesGenerated(routes) {
-          generateRoutes(routes, (route) => {
+        onRoutesGenerated() {
+          generateRoutes(pages, (page) => {
             routeArray.push({
-              path: route.path,
-              ...(route.meta &&
-                route.meta.title && { title: route.meta.title }),
-              ...(route.meta &&
-                route.meta.description && {
-                  description: route.meta.description,
+              path: page.path,
+              ...(page && page.title && { title: page.title }),
+              ...(page &&
+                page.description && {
+                  description: page.description,
                 }),
             });
           });
