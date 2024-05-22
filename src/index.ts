@@ -60,7 +60,7 @@ function routePlugin({
               "utf8",
             );
             const generatedPage = template.replace(
-              "<!-- metadata -->",
+              /<title>.*<\/title>/,
               `${page.title ? `<title>${page.title}</title>` : ""}${
                 page.description
                   ? `\n    <meta name="description" content="${page.description}">`

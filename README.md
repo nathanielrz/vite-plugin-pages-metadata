@@ -23,9 +23,7 @@ npm install -D vite-plugin-pages-metadata
 
 ### Index.html
 
-Replace your current metadata with a comment similar to EJS.
-
-Example of `index.html` located in the root directory.
+No need to replace your title but make sure you have one it will be replaced with metadata and the new title. Here is an example of `index.html` located in the root directory.
 
 ```html
 <!doctype html>
@@ -34,7 +32,7 @@ Example of `index.html` located in the root directory.
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- metadata -->
+    <title>Project Name</title>
   </head>
   <body>
     <div id="root"></div>
