@@ -4,7 +4,7 @@
   "homepage": "https://github.com/nathanielrz/vite-plugin-pages-metadata",
   "repository": "nathanielrz/vite-plugin-pages-metadata",
   "author": "@nathanielrz",
-  "version": "~0.1.7",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",

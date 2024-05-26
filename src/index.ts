@@ -122,6 +122,6 @@ export {
   generateRoutes,
   createMetadata,
   MetadataProvider,
-  UserOptions,
-  Route,
+  type UserOptions,
+  type Route,
 };
