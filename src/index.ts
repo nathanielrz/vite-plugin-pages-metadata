@@ -23,6 +23,8 @@ function routePlugin({
           let filename;
           if (route.path == "/") {
             filename = "index.html";
+          } else if (route.path.endsWith("/")) {
+            filename = `${route.path.slice(route.path.length - 1, route.path.length)}/index.html`;
           } else if (route.path == "*") {
             filename = "404.html";
           } else {
